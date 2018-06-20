@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kid Puzzle Game - Free</title>
+    <meta name="description" content="a free image jigsaw puzzle game for kid.">
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuTzmKOKVrvKKEOvff6OZYw1H9-dRUcFvYHWt-PmwSjSx7daO7Rw">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/yahoo/pure-release/v0.6.0/pure-min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/yahoo/pure-release/v0.6.0/grids-responsive-min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            min-width: 320px;
+            color: #777;
+            ;
+            background: #fad677
+        }
+
+        html,
+        button,
+        input,
+        select,
+        textarea,
+        .pure-g [class *="pure-u"] {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 1.02em;
+        }
+
+        p,
+        td {
+            line-height: 1.5;
+        }
+
+        ul {
+            padding: 0 0 0 20px;
+        }
+
+        th {
+            background: #eee;
+            white-space: nowrap;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            font-size: .9em;
+            font-weight: normal;
+            border-right: 1px solid #fff;
+        }
+
+        td:first-child {
+            white-space: nowrap;
+            color: #008000;
+            width: 1%;
+            font-style: italic;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #4b4b4b;
+            font-family: "Source Sans Pro", sans-serif;
+            font-weight: 300;
+            margin: 0 0 1.2em;
+        }
+
+        h1 {
+            font-size: 4.5em;
+            color: #1f8dd6;
+            margin: 0 0 .4em;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #636363;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: #4b4b4b;
+            margin: 1.8em 0 .8em
+        }
+
+        h4 {
+            font: bold 1em sans-serif;
+            color: #636363;
+            margin: 4em 0 1em;
+        }
+
+        a {
+            color: #4e99c7;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p,
+        pre {
+            margin: 0 0 1.2em;
+        }
+
+        ::selection {
+            color: #fff;
+            background: #328efd;
+        }
+
+        ::-moz-selection {
+            color: #fff;
+            background: #328efd;
+        }
+
+        @media (max-width:480px) {
+            h1 {
+                font-size: 3em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.5em;
+            }
+            td:first-child {
+                white-space: normal;
+            }
+        }
+
+        .inline-code {
+            padding: 1px 5px;
+            background: #eee;
+            border-radius: 2px;
+        }
+
+        pre {
+            padding: 15px 10px;
+            font-size: .9em;
+            color: #555;
+            background: #edf3f8;
+        }
+
+        pre i {
+            color: #aaa;
+        }
+
+        /* comments */
+
+        pre b {
+            font-weight: normal;
+            color: #cf4b25;
+        }
+
+        /* strings */
+
+        pre em {
+            color: #0c59e9;
+        }
+
+        /* numeric */
+
+        /* Pure CSS */
+
+        .pure-button {
+            margin: 5px 0;
+            text-decoration: none !important;
+        }
+
+        .button-lg {
+            margin: 5px 0;
+            padding: .65em 1.6em;
+            font-size: 105%;
+        }
+
+        /* required snapPuzzle styles */
+
+        .snappuzzle-wrap {
+            position: relative;
+            display: block;
+        }
+
+        .snappuzzle-pile {
+            position: relative;
+        }
+
+        .snappuzzle-piece {
+            cursor: move;
+            -webkit-user-select: none; /* Safari 3.1+ */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
+
+        .snappuzzle-slot {
+            position: absolute;
+            background: #fff;
+            opacity: .8;
+        }
+
+        .snappuzzle-slot-hover {
+            background: #eee;
+        }
+
+        #pile {
+            min-height: 250px
+        }
+
+        #love {
+            display: none
+        }
+
+        .title {
+            color: #3082fc;
+            font-size: 1.2em;
+            font-weight: bold;
+            line-height: 30px
+        }
+
+        .info-btn {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            background: #ffffff85;
+            text-align: center;
+        }
+
+        .info {
+            position: fixed;
+            top: 0px;
+            z-index: 1100;
+            background: #ffffffe3;
+            text-align: center;
+        }
+
+        #searchBox {
+            font-size: 16px;
+            width: 320px;
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 5px;
+        }
+
+        #puzzle-containment {
+            margin: 30px auto 0px auto;
+            text-align: center;
+        }
+
+        .fix-bar {
+            position: fixed;
+            bottom: 20px;
+            height: 30px;
+            z-index: 1000;
+            text-align: center;
+            width: 100%;
+        }
+
+        .fix-bar-top {
+            top: 0px
+        }
+
+        .fix-bar-bottom {
+            bottom: 20px
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fix-bar fix-bar-top">
+        <p class="title">Kid Puzzle</p>
+        <p class="info-btn" onclick="toggleInfo()">
+            <i class="fas fa-bars"></i>
+        </p>
+    </div>
+    <div id="puzzle-containment">
+        <div class="pure-g" style="max-width:1280px;margin:auto">
+            <div class="pure-u-1 pure-u-sm-2-3">
+                <div style="margin:10px">
+                    <img id="source_image" class="pure-img" src="">
+                </div>
+            </div>
+            <div class="pure-u-1 pure-u-sm-1-3">
+                <div id="pile" style="margin:10px">
+                    <div id="puzzle_solved" style="display:none;text-align:center;position:relative;top:25%">
+                        <h2 style="margin:0 0 20px">Good Job!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fix-bar fix-bar-bottom">
+        <p class="pure-button pure-button-primary" onclick="newPuzzle()">New Game</p>
+    </div>
+    <div class="info hidden">
+        © 2018 - Peter Vu, All rights reserved
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="jquery.snap-puzzle.js"></script>
+
+    <script>
+        // jQuery UI Touch Punch 0.2.3 - must load after jQuery UI
+        // enables touch support for jQuery UI
+        ! function (a) {
+            function f(a, b) {
+                if (!(a.originalEvent.touches.length > 1)) {
+                    a.preventDefault();
+                    var c = a.originalEvent.changedTouches[0],
+                        d = document.createEvent("MouseEvents");
+                    d.initMouseEvent(b, !0, !0, window, 1, c.screenX, c.screenY, c.clientX, c.clientY, !1, !1, !1, !1,
+                        0, null), a.target.dispatchEvent(d)
+                }
+            }
+            if (a.support.touch = "ontouchend" in document, a.support.touch) {
+                var e, b = a.ui.mouse.prototype,
+                    c = b._mouseInit,
+                    d = b._mouseDestroy;
+                b._touchStart = function (a) {
+                    var b = this;
+                    !e && b._mouseCapture(a.originalEvent.changedTouches[0]) && (e = !0, b._touchMoved = !1, f(a,
+                        "mouseover"), f(a, "mousemove"), f(a, "mousedown"))
+                }, b._touchMove = function (a) {
+                    e && (this._touchMoved = !0, f(a, "mousemove"))
+                }, b._touchEnd = function (a) {
+                    e && (f(a, "mouseup"), f(a, "mouseout"), this._touchMoved || f(a, "click"), e = !1)
+                }, b._mouseInit = function () {
+                    var b = this;
+                    b.element.bind({
+                        touchstart: a.proxy(b, "_touchStart"),
+                        touchmove: a.proxy(b, "_touchMove"),
+                        touchend: a.proxy(b, "_touchEnd")
+                    }), c.call(b)
+                }, b._mouseDestroy = function () {
+                    var b = this;
+                    b.element.unbind({
+                        touchstart: a.proxy(b, "_touchStart"),
+                        touchmove: a.proxy(b, "_touchMove"),
+                        touchend: a.proxy(b, "_touchEnd")
+                    }), d.call(b)
+                }
+            }
+        }(jQuery);
+        var d = window.atob,
+            ba =
+            "aHR0cHM6Ly9waXhhYmF5LmNvbS9hcGkvP1BsZWFzZURvbnRBYnVzZVRoaXNLZXkma2V5PTY1MjM4MDQtZmIzZGEyZDM4ZTEyYjlkYzk5NzcxMGUzMiZvcmllbnRhdGlvbj1ob3Jpem9udGFsJnBlcl9wYWdlPTIwMCZxPQ==";
+
+        function start_puzzle(x) {
+            $('#puzzle_solved').hide();
+            $('#source_image').snapPuzzle({
+                rows: x,
+                columns: x,
+                pile: '#pile',
+                containment: '#puzzle-containment',
+                onComplete: function () {
+                    $('#source_image').fadeOut(150).fadeIn();
+                    $('#puzzle_solved').show();
+                }
+            });
+        }
+    </script>
+
+    <script>
+        var pbJson, loveCount = 0,
+            q = 'kid+art',
+            goodJob = ["Great!", "Cool!", "Excellent!", "Two Thumbs Up!", "You've Got It!", "Way To Go!", "Terrific!",
+                "Outstanding Performance!", "Bravo!", "Keep Up The Good Work!", "Fantastic Work!",
+                "I Knew You Had It In You!", "Very Good!", "Awesome!", "You Made It Happen!", "Well Done!",
+                "High Five!", "You're Amazing!", "You Figured It Out!", "You're A Winner!", "You Can Do It!", "Sweet!",
+                "You're A Natural!", "Good Job!"
+            ];
+
+        function changeImage() {
+            var randomIndex = Math.floor(Math.random() * (pbJson.hits.length - 1)),
+                imageSrc = pbJson.hits[randomIndex].webformatURL;
+            $("#source_image").attr("src", imageSrc);
+            pbJson.hits.splice(randomIndex, 1);
+            $('#puzzle_solved h2').empty().append(goodJob[Math.floor(Math.random() * (goodJob.length - 1))]);
+        }
+
+        $.getJSON(d(ba) + q, function (json) {
+            pbJson = json;
+            changeImage();
+            initPuzzle();
+        });
+
+        function initPuzzle() {
+            start_puzzle(3);
+            $(window).resize(function () {
+                $('#source_image').snapPuzzle('refresh');
+            });
+        };
+
+        function newPuzzle() {
+            $('#source_image').snapPuzzle('destroy');
+            $('#puzzle_solved').hide();
+            changeImage();
+        }
+
+        function toggleInfo() { 
+            var u = 'px',
+                w = window.innerWidth + u,
+                h = window.innerHeight + u ;
+            $('.info').toggleClass('hidden').css({
+                'width':w,
+                'height':h,
+                'line-height':h
+            }).click(function () {  $(this).addClass('hidden')});
+        }
+    </script>
+</body>
+
+</html>
